@@ -1,0 +1,7 @@
+{
+  "name": "Rewash.id",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
