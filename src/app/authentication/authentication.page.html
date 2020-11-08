@@ -1,0 +1,117 @@
+<ion-content>
+  <div *ngIf="isSignIn">
+    <ion-grid>
+      <ion-row>
+        <ion-row class="authentication-header">
+          <ion-col size="6" offset="1">
+            <h1>Welcome Back</h1>
+          </ion-col>
+          <ion-col class="authentication-bubble">
+            <ion-img src="assets/static/authentication/bubble.png"></ion-img>
+          </ion-col>
+        </ion-row>
+        <ion-row class="authentication-basket">
+          <ion-col size="6">
+            <ion-img src="assets/static/authentication/blue-curve.png"></ion-img>
+          </ion-col>
+          <ion-col size="6">
+            <ion-img src="assets/static/authentication/laundry-basket.png"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-row>
+      <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" >
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating">E-mail</ion-label>
+            <ion-input type="email" formControlName="login_email"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" formControlName="login_password"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6" offset="6" class="authentication-forgot-password">
+            <ion-label>
+              <ion-text color="danger">Forgot Password?</ion-text>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <div class="buttons">
+          <ion-button expand="full" fill="solid" type="submit">SIGN IN</ion-button>
+          <ion-row class="orlines">
+            <ion-col size="5" class="orline">
+              <!--        <ion-item-divider></ion-item-divider>-->
+            </ion-col>
+            <ion-col size="2" class="ortext">
+              <p>or</p>
+            </ion-col>
+            <ion-col size="5" class="orline">
+              <!--        <ion-item-divider></ion-item-divider>-->
+            </ion-col>
+          </ion-row>
+          <ion-button expand="block" fill="outline" (click)="switchCase()">SIGN UP</ion-button>
+        </div>
+      </form>
+    </ion-grid>
+  </div>
+  <div *ngIf="!isSignIn">
+    <ion-grid>
+      <ion-row>
+        <ion-row class="authentication-header">
+          <ion-col size="6" offset="1">
+            <h1>Create an Account</h1>
+          </ion-col>
+          <ion-col class="authentication-bubble">
+            <ion-img src="assets/static/authentication/bubble.png"></ion-img>
+          </ion-col>
+        </ion-row>
+        <ion-row class="authentication-duck">
+          <ion-col size="6">
+            <ion-img src="assets/static/authentication/blue-curve.png"></ion-img>
+          </ion-col>
+          <ion-col size="6">
+            <ion-img src="assets/static/mascot/duck.svg" class="duck"></ion-img>
+          </ion-col>
+        </ion-row>
+      </ion-row>
+      <form [formGroup]="signUpForm" (ngSubmit)="signUpUser(signUpForm.value)" >
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating">Full Name</ion-label>
+            <ion-input type="text" formControlName="signup_full_name"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating">E-mail</ion-label>
+            <ion-input type="email" formControlName="signup_email"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" formControlName="signup_password"></ion-input>
+          </ion-item>
+        </ion-row>
+        <div class="buttons">
+        <ion-button expand="full" fill="solid" type="submit">SIGN UP</ion-button>
+        <ion-row class="orlines">
+          <ion-col size="5" class="orline">
+            <!--        <ion-item-divider></ion-item-divider>-->
+          </ion-col>
+          <ion-col size="2" class="ortext">
+            <p>or</p>
+          </ion-col>
+          <ion-col size="5" class="orline">
+            <!--        <ion-item-divider></ion-item-divider>-->
+          </ion-col>
+        </ion-row>
+        <ion-button expand="block" fill="outline">SIGN IN</ion-button>
+      </div>
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>
