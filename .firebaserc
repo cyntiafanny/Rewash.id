@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "rewashid-thesins": {
+      "hosting": {
+        "app": [
+          "rewashid-thesins"
+        ]
+      }
+    }
+  }
+}

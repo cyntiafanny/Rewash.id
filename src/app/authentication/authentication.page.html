@@ -1,6 +1,7 @@
 <ion-content>
   <div *ngIf="isSignIn">
     <ion-grid>
+      <!-- HEADER -->
       <ion-row>
         <ion-row class="authentication-header">
           <ion-col size="6" offset="1">
@@ -19,6 +20,7 @@
           </ion-col>
         </ion-row>
       </ion-row>
+
       <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" >
         <ion-row>
           <ion-item>
@@ -109,7 +111,7 @@
             <!--        <ion-item-divider></ion-item-divider>-->
           </ion-col>
         </ion-row>
-        <ion-button expand="block" fill="outline">SIGN IN</ion-button>
+        <ion-button expand="block" fill="outline" (click)="switchCase()">SIGN IN</ion-button>
       </div>
       </form>
     </ion-grid>
