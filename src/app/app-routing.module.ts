@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'outlet',
+    loadChildren: () => import('./outlet/outlet.module').then( m => m.OutletPageModule)
   }
 ];
 @NgModule({
