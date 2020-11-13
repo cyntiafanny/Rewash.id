@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'input-items',
     loadChildren: () => import('./input-items/input-items.module').then( m => m.InputItemsPageModule)
+  },
+  {
+    path: 'outlet',
+    loadChildren: () => import('./outlet/outlet.module').then( m => m.OutletPageModule)
   }
 ];
 @NgModule({
