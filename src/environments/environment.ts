@@ -12,7 +12,7 @@ export const environment = {
     storageBucket: "rewashid-thesins.appspot.com",
     messagingSenderId: "525377472215",
     appId: "1:525377472215:web:5b1ceb59023c0db12e5292",
-    measurementId: "G-2J58SMF15F"
+    measurementId: "G-2J58SMF15F",
   }
 };
 
