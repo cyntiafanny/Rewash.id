@@ -1,9 +1,37 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>outlet-detail</ion-title>
-  </ion-toolbar>
+
+    <ion-grid class="laundry-image">
+        <ion-toolbar class="bck">
+            <ion-buttons slot="start">
+                <ion-button>
+                    <ion-back-button class="button-back"
+                                     name="arrow-back-outline"
+                                     defaultHref="/outlet"
+                    ></ion-back-button>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-grid>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-margin">
+    <ion-grid class="rating">
+        <ion-icon *ngFor="let item of [].constructor(fullStar)"
+                  class="star-icon"
+                  name="star"
+        ></ion-icon>
+        <ion-icon *ngIf="halfStar"
+                  class="star-icon"
+                  name="star-half"
+        ></ion-icon>
+        <ion-icon *ngFor="let item of [].constructor(emptyStar)"
+                  class="star-icon"
+                  name="star-outline"
+        ></ion-icon>
+        <ion-text class="rating-text">{{rating.toFixed(1)}}</ion-text>
+    </ion-grid>
+    <ion-grid class="outlet-desc">
+        <ion-text class="outlet-name">{{loadedOutlet.name}}</ion-text>
+        <ion-text class="outlet-location">{{loadedOutlet.location}}</ion-text>
+    </ion-grid>
 </ion-content>
