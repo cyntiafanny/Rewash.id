@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Outlet} from "../../outlet.model";
 import {ActivatedRoute} from "@angular/router";
 import {OutletService} from "../../outlet.service";
-import {AngularFireDatabase} from "@angular/fire/database";
 
 @Component({
   selector: 'app-outlet-detail',
@@ -16,32 +15,25 @@ export class OutletDetailPage implements OnInit {
   halfStar: boolean = false;
   emptyStar: number = 5;
   rating: number;
+  openHours: string[] = [];
+  day: string[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  UIday: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private outletService: OutletService,
-    private db: AngularFireDatabase
-  ) {}
+    private outletService: OutletService
+  ) {
+  }
 
-  fetchOutletFromDatabase() {
-    this.db.object('/outlet').valueChanges().subscribe(outlets => {
-      {
-        Object.keys(outlets).forEach(outletKey => {
-          this.outlet.push({
-            id: outletKey,
-            name: outlets[outletKey].name,
-            location: outlets[outletKey].location,
-            longitude: outlets[outletKey].longitude,
-            latitude: outlets[outletKey].latitude,
-            openHours: outlets[outletKey].open_hours,
-            rate: outlets[outletKey].rate,
-            transactions: outlets[outletKey].transactions,
-            points: outlets[outletKey].points,
-            admin: outlets[outletKey].admin
-          })
-        })
+  renderOpenHours() {
+    this.day.forEach(singleDay => {
+      if (this.loadedOutlet.openHours[singleDay]) {
+        this.openHours.push(this.loadedOutlet.openHours[singleDay].open + " - " +
+          this.loadedOutlet.openHours[singleDay].close)
+      } else {
+        this.openHours.push("CLOSED")
       }
-    });
+    })
   }
 
   ngOnInit() {
@@ -53,13 +45,13 @@ export class OutletDetailPage implements OnInit {
       this.loadedOutlet = this.outletService.getOutlet(outletId);
       this.rating = this.loadedOutlet.points / this.loadedOutlet.transactions;
       this.fullStar = Math.floor(this.rating);
-      if(this.rating%1 != 0) {
+      if (this.rating % 1 != 0) {
         this.halfStar = true;
         this.emptyStar = this.emptyStar - this.fullStar - 1;
-      }
-      else {
+      } else {
         this.emptyStar = this.emptyStar - this.fullStar;
       }
+      this.renderOpenHours();
     });
   }
 
