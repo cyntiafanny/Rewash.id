@@ -12,11 +12,10 @@
     "importHelpers": true,
     "target": "es2015",
     "lib": [
-      "es5", "es6",
       "es2018",
-      "dom",
-      "dom.iterable"
-    ]
+      "dom"
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

@@ -5,7 +5,6 @@
             <ion-buttons slot="start">
                 <ion-button>
                     <ion-back-button class="button-back"
-                                     name="arrow-back-outline"
                                      defaultHref="/outlet"
                     ></ion-back-button>
                 </ion-button>
@@ -34,4 +33,16 @@
         <ion-text class="outlet-name">{{loadedOutlet.name}}</ion-text>
         <ion-text class="outlet-location">{{loadedOutlet.location}}</ion-text>
     </ion-grid>
+    <ion-list class="open-hours">
+        <ion-row class="single-open-hours" *ngFor="let singleDay of openHours, let i = index">
+            <ion-col>
+                <ion-text class="day-text">{{UIday[i]}}</ion-text>
+            </ion-col>
+            <ion-col>
+                <ion-text *ngIf="singleDay !== 'CLOSED'" class="hours-open-text">{{singleDay}}</ion-text>
+                <ion-text *ngIf="singleDay === 'CLOSED'" class="hours-close-text">{{singleDay}}</ion-text>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+    <ion-button class="ion-color-primary order-button">CREATE AN ORDER</ion-button>
 </ion-content>
