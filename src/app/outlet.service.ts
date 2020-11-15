@@ -14,6 +14,7 @@ export class OutletService {
   }
 
   storeOutlet(outlets: Outlet[]) {
+    this.outlets = [];
     this.outlets = outlets
   }
 

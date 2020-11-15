@@ -8,5 +8,6 @@ export interface Outlet {
   admin: {},
   points: number,
   rate: number,
-  transactions: number
+  transactions: number,
+  distance: number
 }

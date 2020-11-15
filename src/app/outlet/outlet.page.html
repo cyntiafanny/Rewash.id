@@ -25,7 +25,7 @@
             </ion-avatar>
             <div class="outlet-description">
                 <ion-text class="outlet-name">{{singleOutlet.name}}</ion-text>
-                <ion-text class="outlet-location">0.9 km</ion-text>
+                <ion-text class="outlet-location">{{singleOutlet.distance.toFixed(1) + " KM"}}</ion-text>
             </div>
         </ion-item>
     </ion-list>
