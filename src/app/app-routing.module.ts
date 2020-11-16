@@ -4,7 +4,16 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: 'authentication',
+    pathMatch: 'full'
+  },
+  {
+    path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'input-items',
+    loadChildren: () => import('./input-items/input-items.module').then( m => m.InputItemsPageModule)
   }
 ];
 @NgModule({
