@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService} from '../services/auth.service';
-import {Router} from '@angular/router';
-import {AlertController} from '@ionic/angular';
-import {error} from '@angular/compiler/src/util';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { UserService } from '../services/users/user.service';
 
 @Component({
   selector: 'app-authentication',
@@ -14,16 +14,25 @@ export class AuthenticationPage implements OnInit {
   isSignIn: boolean;
   loginForm: FormGroup;
   signUpForm: FormGroup;
+  currentUser: any;
 
   constructor(
-      private authService: AuthService,
       private router: Router,
-      private alertCtrl: AlertController
+      private alertCtrl: AlertController,
+      public auth: AngularFireAuth,
+      private userService: UserService
   ) {
     this.isSignIn = true;
   }
 
   ngOnInit() {
+    this.auth.onAuthStateChanged((user) => {
+      console.log('===user', user);
+      if (user) {
+        this.router.navigateByUrl('tabs/tab1');
+        this.currentUser = user;
+      }
+    });
     this.loginForm = new FormGroup({
       login_email: new FormControl(null, {
         updateOn: 'blur',
@@ -54,11 +63,16 @@ export class AuthenticationPage implements OnInit {
     this.isSignIn = !this.isSignIn;
   }
 
-  async loginUser(credentials): Promise<void> {
-    this.authService.login(credentials.login_email, credentials.login_password).then(
-        () => {
-          this.router.navigateByUrl('tabs/tab1');
-        },
+
+  // getCurrentUser() {
+  //   return this.auth.currentUser();
+  // }
+
+  loginUser(credentials) {
+    this.auth.signInWithEmailAndPassword(credentials.login_email, credentials.login_password)
+      .then(() => {
+        this.router.navigateByUrl('tabs/tab1');
+      },
         // tslint:disable-next-line:no-shadowed-variable
         async error => {
           const alert = await this.alertCtrl.create({
@@ -66,23 +80,22 @@ export class AuthenticationPage implements OnInit {
             buttons: [{text: 'OK', role: 'cancel'}]
           });
           await alert.present();
-        }
-    );
+        });
   }
 
-  async signUpUser(credentials): Promise<void> {
-    this.authService.signUp(credentials.signup_email, credentials.signup_password).then(
-        () => {
+  signUpUser(credentials) {
+    this.auth.createUserWithEmailAndPassword(credentials.signup_email, credentials.signup_password)
+      .then((userCredential) => {
+          this.userService.create(userCredential.user);
           this.router.navigateByUrl('tabs/tab1');
         },
-        // tslint:disable-next-line:no-shadowed-variable
         async error => {
           const alert = await this.alertCtrl.create({
             message: error.message,
             buttons: [{text: 'OK', role: 'cancel'}]
           });
           await alert.present();
-        }
-    );
+        });
   }
+
 }
