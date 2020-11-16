@@ -1,35 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Order History
+      Tab 2
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 2</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-  <!-- History Card-->
-  <ion-card>
-    <ion-card-content class="ion-card-history">
-      <ion-row>
-        <ion-col size="2.5">
-          <ion-avatar class="ion-history-icon">
-            <ion-img src="/assets/static/merchant/history.png"></ion-img>
-          </ion-avatar>
-        </ion-col>
-        <ion-col size="9.5">
-          <ion-row>
-            <ion-text color="dark" class="ion-outlet-name">
-              Nama Outlet
-            </ion-text>
-          </ion-row>
-          <ion-row>
-            <ion-text color="dark" class="ion-order-date">
-              Month dd, HH:MM XM
-            </ion-text>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
+  <app-explore-container name="Tab 2 page"></app-explore-container>
 </ion-content>
