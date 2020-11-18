@@ -22,11 +22,15 @@ const routes: Routes = [
   {
     path: 'outlet',
     loadChildren: () => import('./outlet/outlet.module').then( m => m.OutletPageModule)
-  },  {
+  },
+  {
+    path: 'delivery-details',
+    loadChildren: () => import('./delivery-details/delivery-details.module').then( m => m.DeliveryDetailsPageModule)
+  },
+  {
     path: 'laundry-details',
     loadChildren: () => import('./laundry-details/laundry-details.module').then( m => m.LaundryDetailsPageModule)
   }
-
 ];
 @NgModule({
   imports: [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonPullUpFooterState } from 'ionic-pullup';
-import {NavController} from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-input-items',
