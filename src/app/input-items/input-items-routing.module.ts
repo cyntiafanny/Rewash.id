@@ -3,8 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { InputItemsPage } from './input-items.page';
 import { InputDropdownComponent } from '../components/input-dropdown/input-dropdown.component';
-import {IonicModule} from '@ionic/angular';
-import {CommonModule} from '@angular/common';
+import { PriceSummaryCardComponent } from '../components/price-summary-card/price-summary-card.component';
+import { IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -15,8 +16,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes), IonicModule, CommonModule],
-  entryComponents: [InputDropdownComponent],
-  declarations: [InputDropdownComponent],
-  exports: [RouterModule, InputDropdownComponent],
+  entryComponents: [InputDropdownComponent, PriceSummaryCardComponent],
+  declarations: [InputDropdownComponent, PriceSummaryCardComponent],
+  exports: [RouterModule, InputDropdownComponent, PriceSummaryCardComponent],
 })
 export class InputItemsPageRoutingModule {}
