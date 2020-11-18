@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AngularFireDatabase} from "@angular/fire/database";
-import {Outlet} from "../outlet.model";
-import {OutletService} from "../outlet.service";
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Outlet } from '../outlet.model';
+import { OutletService } from '../outlet.service';
 
 @Component({
   selector: 'app-outlet',
@@ -10,8 +10,8 @@ import {OutletService} from "../outlet.service";
 })
 export class OutletPage implements OnInit {
   outlet: Outlet[] = [];
-  dummyLatitude: number = -6.255085;
-  dummyLongitude: number = 106.615671;
+  dummyLatitude = -6.255085;
+  dummyLongitude = 106.615671;
 
   constructor(
     private outletService: OutletService,
@@ -19,21 +19,21 @@ export class OutletPage implements OnInit {
   ) {
   }
 
-  getDistance(lat1,lon1,lat2,lon2) {
-    let R = 6371; // Radius of the earth in km
-    let dLat = this.deg2rad(lat2-lat1);  // deg2rad below
-    let dLon = this.deg2rad(lon2-lon1);
-    let a =
-      Math.sin(dLat/2) * Math.sin(dLat/2) +
+  getDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the earth in km
+    const dLat = this.deg2rad(lat2 - lat1);  // deg2rad below
+    const dLon = this.deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) *
-      Math.sin(dLon/2) * Math.sin(dLon/2)
+      Math.sin(dLon / 2) * Math.sin(dLon / 2)
     ;
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
   }
 
   deg2rad(deg) {
-    return deg * (Math.PI/180)
+    return deg * (Math.PI / 180);
   }
 
   fetchOutletFromDatabase() {
@@ -54,15 +54,15 @@ export class OutletPage implements OnInit {
                 distance: this.getDistance(this.dummyLatitude, this.dummyLongitude,
                   data.val()[outletKey].latitude, data.val()[outletKey].longitude
                 )
-              })
-            })
-      })
+              });
+            });
+      });
   }
 
   ngOnInit() {
     this.fetchOutletFromDatabase();
-    console.log(this.outlet)
-    this.outlet.sort((a,b) => (a.distance > b.distance) ? 1 : -1)
+    console.log(this.outlet);
+    this.outlet.sort((a, b) => (a.distance > b.distance) ? 1 : -1);
     this.outletService.storeOutlet(this.outlet);
   }
 
