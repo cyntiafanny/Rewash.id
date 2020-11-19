@@ -19,6 +19,7 @@ export class PriceSummaryCardComponent implements OnInit {
   allowedHourValues: string;
   allowedMinuteValues: string;
   pickupDate: string;
+  deliveryDetailPage: boolean;
 
   constructor() { }
 
@@ -37,6 +38,7 @@ export class PriceSummaryCardComponent implements OnInit {
 
   ngOnInit() {
     this.priceSummary = PRICE_SUMMARY;
+    this.deliveryDetailPage = true;
     this.allowedHourValues = '07,08,09,10,11,12,13,14,15,16,17,18';
     this.allowedMinuteValues = '0,15,30,45';
     // Get today's date as minimum pickup date

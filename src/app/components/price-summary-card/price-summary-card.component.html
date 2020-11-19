@@ -1,47 +1,49 @@
 <div class="price-summary-card">
   <!-- DELIVERY DETAILS  -->
+  <div *ngIf="deliveryDetailPage">
     <!--  LOCATION   -->
-  <div>
-    <ion-grid>
-      <ion-row class="pickup">
-        <ion-col class="pickup-icon-container">
-          <ion-icon name="cube-outline" size="large"></ion-icon>
-        </ion-col>
-        <ion-col>
-          <ion-text color="warning" style="font-weight: bold">Pickup From</ion-text>
-          <ion-text><p class="ion-no-margin">Pickup Location</p></ion-text>
-        </ion-col>
-      </ion-row>
-      <ion-row class="destination">
-        <ion-col class="destination-icon-container">
-          <ion-icon src="/assets/icon/storefront-outline.svg" size="large"></ion-icon>
-        </ion-col>
-        <ion-col>
-          <ion-text color="primary" style="font-weight: bold">Deliver To</ion-text>
-          <ion-text><p class="ion-no-margin">Deliver Location</p></ion-text>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+    <div>
+      <ion-grid>
+        <ion-row class="pickup">
+          <ion-col class="pickup-icon-container">
+            <ion-icon name="cube-outline" size="large"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-text color="warning" style="font-weight: bold">Pickup From</ion-text>
+            <ion-text><p class="ion-no-margin">Pickup Location</p></ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row class="destination">
+          <ion-col class="destination-icon-container">
+            <ion-icon src="/assets/icon/storefront-outline.svg" size="large"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-text color="primary" style="font-weight: bold">Deliver To</ion-text>
+            <ion-text><p class="ion-no-margin">Deliver Location</p></ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
     <!--  DATE & TIME   -->
-  <div>
-    <ion-item>
-      <ion-label position="stacked">Pickup Date & Time</ion-label>
-      <!-- Value : Today's Date -->
-      <ion-datetime
-              displayFormat="D MMM YYYY H:mm"
-              [min]="todayDate.toISOString()"
-              max="2020"
-              [value]="pickupDate"
-              [minuteValues]="allowedMinuteValues"
-              (ionChange)="changePickupDate($event.detail.value)">
-      </ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Delivery Date & Time</ion-label>
-      <!-- Min : 1 day after today, Max: 1 week after today -->
-      <ion-datetime displayFormat="D MMM YYYY H:mm" [min]="minDeliveryDate" [max]="maxDeliveryDate" [value]="minDeliveryDate" [minuteValues]="allowedMinuteValues"></ion-datetime>
-    </ion-item>
+    <div>
+      <ion-item>
+        <ion-label position="stacked">Pickup Date & Time</ion-label>
+        <!-- Value : Today's Date -->
+        <ion-datetime
+                displayFormat="D MMM YYYY H:mm"
+                [min]="todayDate.toISOString()"
+                max="2020"
+                [value]="pickupDate"
+                [minuteValues]="allowedMinuteValues"
+                (ionChange)="changePickupDate($event.detail.value)">
+        </ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Delivery Date & Time</ion-label>
+        <!-- Min : 1 day after today, Max: 1 week after today -->
+        <ion-datetime displayFormat="D MMM YYYY H:mm" [min]="minDeliveryDate" [max]="maxDeliveryDate" [value]="minDeliveryDate" [minuteValues]="allowedMinuteValues"></ion-datetime>
+      </ion-item>
+    </div>
   </div>
   <!-- LIST OF PRICES -->
   <div style="margin: 10px 0px">
