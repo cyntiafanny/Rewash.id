@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'outlet',
     loadChildren: () => import('./outlet/outlet.module').then( m => m.OutletPageModule)
+  },  {
+    path: 'laundry-details',
+    loadChildren: () => import('./laundry-details/laundry-details.module').then( m => m.LaundryDetailsPageModule)
   }
+
 ];
 @NgModule({
   imports: [
