@@ -4,7 +4,7 @@ import { Item } from '../../../constants/item-model';
 import { CurrencyPipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
-import {element} from 'protractor';
+import { element } from 'protractor';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 registerLocaleData(localeId, 'id');
 import { ToastController } from '@ionic/angular';
@@ -89,6 +89,55 @@ export class InputDropdownComponent implements OnInit {
     });
   }
 
+  // ITEMS ADDED TO CART
+  calculateCart() {
+    const specialItemsRes = this.specialItems.filter(item => item.QTY > 0);
+    const normalItemsRes = this.normalItems.filter(item => item.QTY > 0);
+    const otherItemsRes = this.otherItems;
+
+    let specialItemsPriceTotal = 0;
+    let normalItemsPriceTotal = 0;
+    let otherItemsPriceTotal = 0;
+    let totalOrderPrice = 0;
+    let normalItemsEstWeightTotal = 0;
+    let specialItemsEstWeightTotal = 0;
+    let otherItemsEstWeightTotal = 0;
+
+    specialItemsRes.forEach((item) => {
+      specialItemsPriceTotal += (item.PRICE * item.QTY);
+      specialItemsEstWeightTotal += (item.WEIGHT * item.QTY);
+    });
+    normalItemsRes.forEach((item) => {
+      normalItemsEstWeightTotal += (item.WEIGHT * item.QTY);
+    });
+    otherItemsRes.forEach((item) => {
+      otherItemsPriceTotal += (25000 * item.QTY);
+      otherItemsEstWeightTotal += (200 * item.QTY);
+    });
+
+    normalItemsPriceTotal = 10000 * (normalItemsEstWeightTotal / 1000);
+    totalOrderPrice = specialItemsPriceTotal + normalItemsPriceTotal + otherItemsPriceTotal;
+
+    const cart = {
+      SPECIAL : [...specialItemsRes],
+      NORMAL: [...normalItemsRes],
+      OTHERS: [...otherItemsRes],
+      DETAILS: {
+        PRICE : {
+          specialItemsPriceTotal,
+          normalItemsPriceTotal,
+          otherItemsPriceTotal,
+          totalOrderPrice
+        },
+        WEIGHT: {
+          normalItemsEstWeightTotal: Math.ceil(normalItemsEstWeightTotal / 1000),
+          specialItemsEstWeightTotal: Math.ceil(specialItemsEstWeightTotal / 1000)
+        }
+      }
+    };
+    console.log('===cart', cart);
+  }
+
   onAddOtherItem(key: any) {
     this.otherItems.forEach((obj: Item) => {
       if (obj.KEY === key) {
@@ -116,17 +165,7 @@ export class InputDropdownComponent implements OnInit {
         }
       ]
     });
-
     await alert.present();
-  }
-
-
-  // ITEMS ADDED TO CART
-  onNext() {
-    const specialItemsRes = this.specialItems.filter(item => item.QTY > 0);
-    const normalItemsRes = this.normalItems.filter(item => item.QTY > 0);
-    console.log('===specialItemsRes', specialItemsRes);
-    console.log('===normalItemsRes', normalItemsRes);
   }
 
   // TOGGLE GENERAL MENU
@@ -147,7 +186,12 @@ export class InputDropdownComponent implements OnInit {
     this.isOthersMenuHidden = !this.isOthersMenuHidden;
   }
 
-  // HASH KEY FOR OTHER ITEM (TAKUT ADA YANG NAMANYA SAMA DOUBLE)
+  /*
+    HASH KEY FOR OTHER ITEM
+    IF USER INPUT OTHER ITEM NAME THAT ARE THE SAME,
+    MUST ENSURE KEY IS DIFFERENT
+    THIS HAS KEY USES NAME & COUNT VAR
+  */
   hashCode = (s) => s.split('').reduce((a, b) => {
     // tslint:disable-next-line:no-bitwise
     a = (( a << 5 ) - a ) + b.charCodeAt(0);
@@ -161,11 +205,10 @@ export class InputDropdownComponent implements OnInit {
     this.count++;
     if (other_item_name !== null || other_item_qty !== null) {
       this.otherItems.push({
-        KEY: Math.abs(this.hashCode(newItem.other_item_name + this.count)),
+        KEY: Math.abs(this.hashCode(newItem.other_item_name + this.count)).toString(),
         NAME: other_item_name,
         QTY: other_item_qty
       });
-      console.log('===arr', this.otherItems);
       this.addOtherItemForm.reset();
       this.presentToast('Item has been added!', 'success');
     } else {
@@ -187,7 +230,7 @@ export class InputDropdownComponent implements OnInit {
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Store Policy',
-      message: '*Please make sure you have already checked the item you will input isn\'t already listed on categories above.\n Also please note you will be charged according to our store policy.',
+      message: '*Please make sure you have already checked that the item you will input isn\'t already listed on categories above.\n Also please note you will be charged according to our store policy.',
       buttons: ['OK']
     });
     await alert.present().then(() => {
