@@ -4,15 +4,18 @@ import { PriceDetail } from '../../../constants/price-model';
 import { CurrencyPipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
+import { OrderService } from '../../services/order/order.service';
 registerLocaleData(localeId, 'id');
 
 @Component({
   selector: 'app-price-summary-card',
   templateUrl: './price-summary-card.component.html',
   styleUrls: ['./price-summary-card.component.scss'],
+  providers: [ OrderService ]
 })
 export class PriceSummaryCardComponent implements OnInit {
   priceSummary: Array<PriceDetail>;
+  // priceSummary: any;
   todayDate: Date;
   maxDeliveryDate: string;
   minDeliveryDate: string;
@@ -21,7 +24,12 @@ export class PriceSummaryCardComponent implements OnInit {
   pickupDate: string;
   deliveryDetailPage: boolean;
 
-  constructor() { }
+  constructor(public orderService: OrderService) {
+    // orderService.order.subscribe((newData) => {
+    //   this.priceSummary = newData;
+    //   console.log('===price summary', this.priceSummary);
+    // });
+  }
 
   addDays(date, days) {
     const copy = new Date(Number(date));
@@ -38,6 +46,8 @@ export class PriceSummaryCardComponent implements OnInit {
 
   ngOnInit() {
     this.priceSummary = PRICE_SUMMARY;
+    // this.priceSummary = this.orderService.getOrder();
+    // console.log('===price summary', this.priceSummary);
     this.deliveryDetailPage = true;
     this.allowedHourValues = '07,08,09,10,11,12,13,14,15,16,17,18';
     this.allowedMinuteValues = '0,15,30,45';

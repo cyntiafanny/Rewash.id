@@ -9,16 +9,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 registerLocaleData(localeId, 'id');
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { OrderService } from '../../services/order/order.service';
 
 @Component({
   selector: 'app-input-dropdown',
   templateUrl: './input-dropdown.component.html',
   styleUrls: ['./input-dropdown.component.scss'],
+  providers: [ OrderService ]
 })
 export class InputDropdownComponent implements OnInit {
   constructor(
       public toastController: ToastController,
-      public alertController: AlertController
+      public alertController: AlertController,
+      public orderService: OrderService
   ) { }
 
   normalItems: Array<Item> = [];
@@ -135,7 +138,7 @@ export class InputDropdownComponent implements OnInit {
         }
       }
     };
-    console.log('===cart', cart);
+    this.orderService.setOrder(cart);
   }
 
   onAddOtherItem(key: any) {
