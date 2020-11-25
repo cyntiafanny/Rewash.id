@@ -1,5 +1,7 @@
 import {Component, OnInit } from '@angular/core';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { UserService } from '../services/users/user.service';
+import { User } from '../services/users/user';
 
 @Component({
   selector: 'app-tab1',
@@ -8,10 +10,14 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 })
 
 export class Tab1Page implements OnInit{
-  user: any;
+  user: User;
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user = this.userService.getLoggedInUser();
+    // console.log('===this.user', this.user);
+    // console.log('===this.user.name', this.user.name);
+  }
 
 }

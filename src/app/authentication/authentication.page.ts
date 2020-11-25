@@ -27,11 +27,12 @@ export class AuthenticationPage implements OnInit {
 
   ngOnInit() {
     this.auth.onAuthStateChanged((user) => {
-      console.log('===user', user);
-      if (user) {
-        this.router.navigateByUrl('tabs/tab1');
-        this.currentUser = user;
-      }
+      // console.log('===user', user);
+      // if (user) {
+      //   this.router.navigateByUrl('tabs/tab1');
+      //   this.currentUser = user;
+        this.userService.setLoggedInUser(user);
+      // }
     });
     this.loginForm = new FormGroup({
       login_email: new FormControl(null, {
