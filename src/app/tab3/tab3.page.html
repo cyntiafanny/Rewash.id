@@ -20,13 +20,13 @@
         </ion-text>
       </ion-row>
       <ion-row >
-        <p>+62-xxx-xxx-xxx</p>
+        <p>{{ user.phoneNumber }}</p>
       </ion-row>
       <ion-row >
         <p>{{ user.email }}</p>
       </ion-row>
       <ion-row >
-        <p>{{ user.address[0].locationName }}</p>
+        <p>{{ user.address[0]?.locationName || 'No Address Has Been Saved' }}</p>
       </ion-row>
       <ion-row>
         <ion-col size="3" class="ion-profile-button">

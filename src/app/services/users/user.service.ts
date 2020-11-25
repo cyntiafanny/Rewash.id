@@ -17,31 +17,32 @@ export class UserService {
   }
 
   /* After user sign up, create new reference to that user in DB */
-  create(user: any): any {
+  create(user: any, fullName: string, phoneNumber: string): any {
     const { uid , providerData } = user;
-    // console.log('===uid', uid);
-    // console.log('===email', providerData[0].email);
     this.dbRef = this.db.database.ref().child('users');
-    // console.log('===this.dbRef', this.dbRef);
     this.dbRef.child(`${uid}`).set({
-      email: providerData[0].email
+      email: providerData[0].email,
+      fullName,
+      phoneNumber,
+      imageUrl: '',
+      address: []
     });
   }
 
-  setLoggedInUser(data: any) {
-    const { uid, email } = data;
+  /* After Logging In, Save User Information */
+  setLoggedInUser(uid: string, email: string) {
     this.loggedInUser = new User();
     this.dbRef = this.db.database.ref('users/' + uid).once('value').then((dataSnapshot) => {
-      // console.log('===dataSnapshot', dataSnapshot.val());
       this.loggedInUser.id = uid;
       this.loggedInUser.name = dataSnapshot.val().fullName || '';
       this.loggedInUser.email = dataSnapshot.val().email || email;
+      this.loggedInUser.phoneNumber = dataSnapshot.val().phoneNumber;
       this.loggedInUser.address = dataSnapshot.val().address || [];
       this.loggedInUser.imageUrl = dataSnapshot.val().imageUrl || [];
     });
-    console.log('===this.loggedInUser', this.loggedInUser);
   }
 
+  /* Returns the currently signed in user */
   getLoggedInUser() {
     return this.loggedInUser;
   }

@@ -28,11 +28,11 @@ export class AuthenticationPage implements OnInit {
   ngOnInit() {
     this.auth.onAuthStateChanged((user) => {
       // console.log('===user', user);
-      // if (user) {
-      //   this.router.navigateByUrl('tabs/tab1');
-      //   this.currentUser = user;
-        this.userService.setLoggedInUser(user);
-      // }
+      if (user) {
+        this.router.navigateByUrl('tabs/tab1');
+        this.currentUser = user;
+        this.userService.setLoggedInUser(user?.uid, user?.email);
+      }
     });
     this.loginForm = new FormGroup({
       login_email: new FormControl(null, {
@@ -57,17 +57,16 @@ export class AuthenticationPage implements OnInit {
         updateOn: 'blur',
         validators: !this.isSignIn ? [Validators.required] : []
       }),
+      signup_phone_number: new FormControl(null, {
+        updateOn: 'blur',
+        validators: !this.isSignIn ? [Validators.required] : []
+      })
     });
   }
 
   switchCase() {
     this.isSignIn = !this.isSignIn;
   }
-
-
-  // getCurrentUser() {
-  //   return this.auth.currentUser();
-  // }
 
   loginUser(credentials) {
     this.auth.signInWithEmailAndPassword(credentials.login_email, credentials.login_password)
@@ -87,7 +86,7 @@ export class AuthenticationPage implements OnInit {
   signUpUser(credentials) {
     this.auth.createUserWithEmailAndPassword(credentials.signup_email, credentials.signup_password)
       .then((userCredential) => {
-          this.userService.create(userCredential.user);
+          this.userService.create(userCredential.user, credentials.signup_full_name, credentials.signup_phone_number);
           this.router.navigateByUrl('tabs/tab1');
         },
         async error => {
