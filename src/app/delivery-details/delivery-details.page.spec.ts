@@ -1,18 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { InputDropdownComponent } from './input-dropdown.component';
 
-describe('InputDropdownComponent', () => {
-  let component: InputDropdownComponent;
-  let fixture: ComponentFixture<InputDropdownComponent>;
+import { DeliveryDetailsPage } from './delivery-details.page';
+
+describe('DeliveryDetailsPage', () => {
+  let component: DeliveryDetailsPage;
+  let fixture: ComponentFixture<DeliveryDetailsPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputDropdownComponent ],
+      declarations: [ DeliveryDetailsPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(InputDropdownComponent);
+    fixture = TestBed.createComponent(DeliveryDetailsPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

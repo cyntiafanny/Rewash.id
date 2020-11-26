@@ -1,18 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { InputDropdownComponent } from './input-dropdown.component';
 
-describe('InputDropdownComponent', () => {
-  let component: InputDropdownComponent;
-  let fixture: ComponentFixture<InputDropdownComponent>;
+import { PriceSummaryCardComponent } from './price-summary-card.component';
+
+describe('PriceSummaryCardComponent', () => {
+  let component: PriceSummaryCardComponent;
+  let fixture: ComponentFixture<PriceSummaryCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InputDropdownComponent ],
+      declarations: [ PriceSummaryCardComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(InputDropdownComponent);
+    fixture = TestBed.createComponent(PriceSummaryCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
