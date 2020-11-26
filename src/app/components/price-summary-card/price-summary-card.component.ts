@@ -15,8 +15,8 @@ registerLocaleData(localeId, 'id');
   providers: [ OrderService ]
 })
 export class PriceSummaryCardComponent implements OnInit, OnDestroy {
-  priceSummary: OrderDetail;
-  private priceSummarySub: Subscription;
+  orderDetail: OrderDetail;
+  private orderSummarySub: Subscription;
   todayDate: Date;
   maxDeliveryDate: string;
   minDeliveryDate: string;
@@ -41,11 +41,11 @@ export class PriceSummaryCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.priceSummarySub = this.orderService.getOrder().subscribe((orderData) => {
+    this.orderSummarySub = this.orderService.getOrder().subscribe((orderData) => {
       console.log('===orderData', orderData);
-      this.priceSummary = orderData;
+      this.orderDetail = orderData;
     });
-    console.log('===this.priceSummary', this.priceSummary);
+    console.log('===this.priceSummary', this.orderDetail);
     this.deliveryDetailPage = true;
     this.allowedHourValues = '7,8,9,10,11,12,13,14,15,16,17,18';
     this.allowedMinuteValues = '0,15,30,45';
@@ -56,8 +56,8 @@ export class PriceSummaryCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.priceSummarySub) {
-      this.priceSummarySub.unsubscribe();
+    if (this.orderSummarySub) {
+      this.orderSummarySub.unsubscribe();
     }
   }
 

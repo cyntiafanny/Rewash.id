@@ -73,19 +73,19 @@ export class OrderService {
       PRICE: [
         {
           NAME: 'Special Items Price',
-          PRICE: 150000
+          PRICE: 0
         },
         {
           NAME: 'Normal Items Price',
-          PRICE: 6000
+          PRICE: 0
         },
         {
           NAME: 'Other Items Price',
-          PRICE: 100000
+          PRICE: 0
         },
         {
           NAME: 'Total Order Price',
-          PRICE: 256000
+          PRICE: 0
         }
       ],
       WEIGHT: {
