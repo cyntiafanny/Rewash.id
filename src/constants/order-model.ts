@@ -6,6 +6,11 @@ export class OrderDetail {
     OTHERS: Array<Item>;
     DETAIL: {
         ORDERID: string,
+        ADDITIONALS: {
+            SCENT: string;
+            REQUEST_BAG: boolean;
+            NOTES: string;
+        }
         PRICE: Array<
             {
                 NAME: string,
@@ -18,6 +23,9 @@ export class OrderDetail {
             PICKUPTD: string;
             ORIGIN: string;
             DESTINATION: string;
+            USERID: string;
+            OUTLETID: string;
+            NOTES: string;
         },
         PROGRESS: Array<{
             NAME: string,

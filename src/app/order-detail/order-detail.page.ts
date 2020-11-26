@@ -90,6 +90,11 @@ export class OrderDetailPage implements OnInit {
       ],
       DETAIL: {
         ORDERID: 'ASDFGHJKL12345',
+        ADDITIONALS: {
+          SCENT: 'Clean Cotton',
+          REQUEST_BAG: false,
+          NOTES: 'Tolong dicuci yang bersih ya!'
+        },
         PRICE: [
           {
             NAME: 'Special Items Price',
@@ -116,7 +121,10 @@ export class OrderDetailPage implements OnInit {
           DELIVERYTD: '2020-11-29T05:08:04.200Z',
           PICKUPTD: '2020-11-26T05:08:04.200Z',
           ORIGIN: 'Perumahan Lengkong Wetan',
-          DESTINATION: 'Rewash Aeon Mall'
+          DESTINATION: 'Rewash Aeon Mall',
+          USERID: '12382379182',
+          OUTLETID: '283193349',
+          NOTES: 'Kompleksnya sebelah Griya Loka'
         },
         PROGRESS:  [
           {
