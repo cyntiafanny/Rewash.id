@@ -150,6 +150,7 @@ export class InputDropdownComponent implements OnInit {
         }
       }
     };
+    console.log(JSON.stringify(cart));
     this.orderService.setOrder(cart);
   }
 

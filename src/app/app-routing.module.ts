@@ -28,8 +28,13 @@ const routes: Routes = [
     loadChildren: () => import('./delivery-details/delivery-details.module').then( m => m.DeliveryDetailsPageModule)
   },
   {
+<<<<<<< HEAD
     path: 'laundry-details',
     loadChildren: () => import('./laundry-details/laundry-details.module').then( m => m.LaundryDetailsPageModule)
+=======
+    path: 'order-detail',
+    loadChildren: () => import('./order-detail/order-detail.module').then( m => m.OrderDetailPageModule)
+>>>>>>> 31de5a1... feat(order-detail): add template for order-detail
   }
 ];
 @NgModule({
