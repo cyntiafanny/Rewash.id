@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import { PRICE_SUMMARY } from '../../../constants/price-summary';
 import { PriceDetail } from '../../../constants/price-model';
 import { CurrencyPipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
 import { OrderService } from '../../services/order/order.service';
+import { Subscription } from 'rxjs';
 registerLocaleData(localeId, 'id');
 
 @Component({
@@ -13,9 +14,9 @@ registerLocaleData(localeId, 'id');
   styleUrls: ['./price-summary-card.component.scss'],
   providers: [ OrderService ]
 })
-export class PriceSummaryCardComponent implements OnInit {
-  priceSummary: Array<PriceDetail>;
-  // priceSummary: any;
+export class PriceSummaryCardComponent implements OnInit, OnDestroy {
+  priceSummary: PriceDetail;
+  private priceSummarySub: Subscription;
   todayDate: Date;
   maxDeliveryDate: string;
   minDeliveryDate: string;
@@ -24,12 +25,7 @@ export class PriceSummaryCardComponent implements OnInit {
   pickupDate: string;
   deliveryDetailPage: boolean;
 
-  constructor(public orderService: OrderService) {
-    // orderService.order.subscribe((newData) => {
-    //   this.priceSummary = newData;
-    //   console.log('===price summary', this.priceSummary);
-    // });
-  }
+  constructor(public orderService: OrderService) {}
 
   addDays(date, days) {
     const copy = new Date(Number(date));
@@ -45,11 +41,13 @@ export class PriceSummaryCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.priceSummary = PRICE_SUMMARY;
-    // this.priceSummary = this.orderService.getOrder();
-    // console.log('===price summary', this.priceSummary);
+    this.priceSummarySub = this.orderService.getOrder().subscribe((orderData) => {
+      console.log('===orderData', orderData);
+      this.priceSummary = orderData;
+    });
+    console.log('===this.priceSummary', this.priceSummary);
     this.deliveryDetailPage = true;
-    this.allowedHourValues = '07,08,09,10,11,12,13,14,15,16,17,18';
+    this.allowedHourValues = '7,8,9,10,11,12,13,14,15,16,17,18';
     this.allowedMinuteValues = '0,15,30,45';
     // Get today's date as minimum pickup date
     this.todayDate = new Date();
@@ -57,7 +55,14 @@ export class PriceSummaryCardComponent implements OnInit {
     this.changePickupDate(this.pickupDate);
   }
 
-    onNextClick() {
-        alert('Next is Clicked');
+  ngOnDestroy() {
+    if (this.priceSummarySub) {
+      this.priceSummarySub.unsubscribe();
     }
+  }
+
+  onNextClick() {
+      alert('Next is Clicked');
+  }
+
 }

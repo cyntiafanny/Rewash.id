@@ -126,12 +126,24 @@ export class InputDropdownComponent implements OnInit {
       NORMAL: [...normalItemsRes],
       OTHERS: [...otherItemsRes],
       DETAILS: {
-        PRICE : {
-          specialItemsPriceTotal,
-          normalItemsPriceTotal,
-          otherItemsPriceTotal,
-          totalOrderPrice
-        },
+        PRICE : [
+          {
+            name: 'Special Items Price',
+            price: specialItemsPriceTotal,
+          },
+          {
+            name: 'Normal Items Price',
+            price: normalItemsPriceTotal,
+          },
+          {
+            name: 'Other Items Price',
+            price: otherItemsPriceTotal,
+          },
+          {
+            name: 'Total Order Price',
+            price: totalOrderPrice,
+          }
+        ],
         WEIGHT: {
           normalItemsEstWeightTotal: Math.ceil(normalItemsEstWeightTotal / 1000),
           specialItemsEstWeightTotal: Math.ceil(specialItemsEstWeightTotal / 1000)

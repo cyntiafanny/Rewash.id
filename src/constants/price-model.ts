@@ -1,6 +1,23 @@
 export class PriceDetail {
-    name: string;
-    price: number;
-    constructor(name: string, price: number) {
-    }
+    SPECIAL: object;
+    NORMAL: object;
+    OTHERS: object;
+    DETAIL: {
+        PRICE: Array<
+            {
+                name: string,
+                price: number
+            }
+        >;
+        WEIGHT: object;
+    };
+    constructor(
+        SPECIAL: {},
+        NORMAL: {},
+        OTHERS: {},
+        DETAIL: {
+            PRICE: [],
+            WEIGHT: {}
+        }
+    ) {}
 }
