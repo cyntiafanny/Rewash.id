@@ -125,7 +125,7 @@ export class InputDropdownComponent implements OnInit {
       SPECIAL : [...specialItemsRes],
       NORMAL: [...normalItemsRes],
       OTHERS: [...otherItemsRes],
-      DETAILS: {
+      DETAIL: {
         PRICE : [
           {
             name: 'Special Items Price',

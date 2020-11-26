@@ -1,6 +1,6 @@
 import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import { PRICE_SUMMARY } from '../../../constants/price-summary';
-import { PriceDetail } from '../../../constants/price-model';
+import { OrderDetail } from '../../../constants/order-model';
 import { CurrencyPipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
@@ -15,7 +15,7 @@ registerLocaleData(localeId, 'id');
   providers: [ OrderService ]
 })
 export class PriceSummaryCardComponent implements OnInit, OnDestroy {
-  priceSummary: PriceDetail;
+  priceSummary: OrderDetail;
   private priceSummarySub: Subscription;
   todayDate: Date;
   maxDeliveryDate: string;
