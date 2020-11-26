@@ -11,6 +11,7 @@ export class UserService {
   usersRef: AngularFireList<User> = null;
   dbRef: any;
   loggedInUser: User;
+  private currentUser: string;
 
   constructor(private db: AngularFireDatabase) {
     this.usersRef = db.list(this.dbPath);
@@ -45,5 +46,13 @@ export class UserService {
   /* Returns the currently signed in user */
   getLoggedInUser() {
     return this.loggedInUser;
+  }
+
+  storeLoggedUser(uid: string) {
+    this.currentUser = uid;
+  }
+
+  getLoggedUser() {
+    return this.currentUser;
   }
 }

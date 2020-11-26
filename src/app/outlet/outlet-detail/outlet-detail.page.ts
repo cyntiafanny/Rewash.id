@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Outlet} from "../../outlet.model";
+import {Outlet} from "../../services/outlets/outlet.model";
 import {ActivatedRoute} from "@angular/router";
-import {OutletService} from "../../outlet.service";
+import {OutletService} from "../../services/outlets/outlet.service";
 
 @Component({
   selector: 'app-outlet-detail',

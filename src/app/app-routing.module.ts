@@ -34,12 +34,17 @@ const routes: Routes = [
   {
     path: 'order-detail',
     loadChildren: () => import('./order-detail/order-detail.module').then( m => m.OrderDetailPageModule)
+  },
+  {
+    path: 'chat/:idOrder',
+    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
   }
+
 ];
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

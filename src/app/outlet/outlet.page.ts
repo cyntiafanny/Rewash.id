@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { Outlet } from '../outlet.model';
-import { OutletService } from '../outlet.service';
+import {AngularFireDatabase} from '@angular/fire/database';
+import {Outlet} from '../services/outlets/outlet.model';
+import {OutletService} from '../services/outlets/outlet.service';
 
 @Component({
   selector: 'app-outlet',
@@ -61,14 +61,12 @@ export class OutletPage implements OnInit {
 
   ngOnInit() {
     this.fetchOutletFromDatabase();
-    console.log(this.outlet);
-    this.outlet.sort((a, b) => (a.distance > b.distance) ? 1 : -1);
+    setTimeout(() => this.outlet.sort((a,b) => (a.distance > b.distance) ? 1 : -1), 2000);
     this.outletService.storeOutlet(this.outlet);
   }
 
   ionViewWillEnter() {
-    // this.fetchOutletFromDatabase();
-    // this.outletService.storeOutlet(this.outlet);
+    this.outlet = this.outletService.getAllOutlets();
   }
 
 
