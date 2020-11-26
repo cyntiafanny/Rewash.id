@@ -122,9 +122,9 @@ export class OrderDetailPage implements OnInit {
           PICKUPTD: '2020-11-26T05:08:04.200Z',
           ORIGIN: 'Perumahan Lengkong Wetan',
           DESTINATION: 'Rewash Aeon Mall',
-          USERID: '12382379182',
-          OUTLETID: '283193349',
-          NOTES: 'Kompleksnya sebelah Griya Loka'
+          OUTLETID: 'o1',
+          USERID: 'BKOJAldnq4MDqqXLMhtE6WRRbSc2',
+          NOTES: 'Yang bersih yaaa'
         },
         PROGRESS:  [
           {

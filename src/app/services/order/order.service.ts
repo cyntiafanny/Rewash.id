@@ -9,71 +9,133 @@ import { distinctUntilChanged } from 'rxjs/operators';
 })
 export class OrderService {
   order = new BehaviorSubject<OrderDetail>({
+    SPECIAL: [
+      {
+        KEY: 'BATIK',
+        NAME: 'Batik',
+        PRICE: 50000,
+        WEIGHT: 200,
+        QTY: 1
+      },
+      {
+        KEY: 'SHORT_DRESS',
+        NAME: 'Short Dress',
+        PRICE: 50000,
+        WEIGHT: 200,
+        QTY: 1
+      },
+      {
+        KEY: 'BEDCOVER',
+        NAME: 'Bedcover',
+        PRICE: 50000,
+        WEIGHT: 200,
+        QTY: 1
+      }
+    ],
+    NORMAL: [
+      {
+        KEY: 'SHORT_TOPS',
+        NAME: 'Short Tops',
+        PRICE: 50000,
+        WEIGHT: 200,
+        QTY: 1
+      },
+      {
+        KEY: 'LONG_TOPS',
+        NAME: 'Long Tops',
+        PRICE: 50000,
+        WEIGHT: 200,
+        QTY: 1
+      },
+      {
+        KEY: 'SHORT_BOTTOMS',
+        NAME: 'Short Bottoms',
+        PRICE: 50000,
+        WEIGHT: 200,
+        QTY: 1
+      }
+    ],
+    OTHERS: [
+      // @ts-ignore
+      {
+        KEY: '1327868128',
+        NAME: 'Bantal',
+        QTY: 4
+      }
+    ],
     DETAIL: {
+      ORDERID: 'ASDFGHJKL12345',
+      ADDITIONALS: {
+        SCENT: 'Clean Cotton',
+        REQUEST_BAG: false,
+        NOTES: 'Tolong dicuci yang bersih ya!'
+      },
       PRICE: [
         {
-          name: 'Special Items Price',
-          price: 0,
+          NAME: 'Special Items Price',
+          PRICE: 150000
         },
         {
-          name: 'Normal Items Price',
-          price: 0,
+          NAME: 'Normal Items Price',
+          PRICE: 6000
         },
         {
-          name: 'Other Items Price',
-          price: 0,
+          NAME: 'Other Items Price',
+          PRICE: 100000
         },
         {
-          name: 'Total Order Price',
-          price: 0,
+          NAME: 'Total Order Price',
+          PRICE: 256000
         }
       ],
-      WEIGHT: {},
+      WEIGHT: {
+        normalItemsEstWeightTotal: 1,
+        specialItemsEstWeightTotal: 1
+      },
       SHIPPING: {
-        DELIVERYTD: '2020-11-26T05:08:04.200Z',
-        PICKUPTD: '2020-11-29T05:08:04.200Z',
+        DELIVERYTD: '2020-11-29T05:08:04.200Z',
+        PICKUPTD: '2020-11-26T05:08:04.200Z',
         ORIGIN: 'Perumahan Lengkong Wetan',
-        DESTINATION: 'Rewash Aeon Mall'
+        DESTINATION: 'Rewash Aeon Mall',
+        OUTLETID: 'o1',
+        USERID: 'BKOJAldnq4MDqqXLMhtE6WRRbSc2',
+        NOTES: 'Yang bersih yaaa'
       },
       PROGRESS:  [
         {
-          name: 'Order placed & confirmed',
-          status: false
+          NAME: 'Order placed & confirmed',
+          STATUS: true
         },
         {
-          name: 'Driver on the way to pickup',
-          status: false
+          NAME: 'Driver on the way to pickup',
+          STATUS: false
         },
         {
-          name: 'Laundry picked up, delivering to outlet',
-          status: false
+          NAME: 'Laundry picked up, delivering to outlet',
+          STATUS: false
         },
         {
-          name: 'Laundry received & confirmed by outlet',
-          status: false
+          NAME: 'Laundry received & confirmed by outlet',
+          STATUS: false
         },
         {
-          name: 'Laundry is being washed',
-          status: false
+          NAME: 'Laundry is being washed',
+          STATUS: false
         },
         {
-          name: 'Laundry is finished washing',
-          status: false
+          NAME: 'Laundry is finished washing',
+          STATUS: false
         },
         {
-          name: 'Laundry is on the way!',
-          status: false
+          NAME: 'Laundry is on the way!',
+          STATUS: false
         },
         {
-          name: 'Laundry has been received',
-          status: false
+          NAME: 'Laundry has been received',
+          STATUS: false
         }
       ]
-    },
-    NORMAL: {},
-    OTHERS: {},
-    SPECIAL: {}
-  });
+    }});
 
   constructor(
       private router: Router
