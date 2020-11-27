@@ -3,9 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { OrderDetail } from '../../../constants/order-model';
 import { Router } from '@angular/router';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { Order } from './order.model';
-import { AngularFireDatabase } from '@angular/fire/database';
-import {AngularFireAuth} from '@angular/fire/auth';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -140,9 +138,16 @@ export class OrderService {
       ]
     }});
 
+  private dbPath = '/orders';
+  ordersRef: AngularFireList<OrderDetail> = null;
+  dbRef: any;
+
   constructor(
-      private router: Router
-  ) {}
+      private router: Router,
+      private db: AngularFireDatabase
+  ) {
+    this.ordersRef = db.list(this.dbPath);
+  }
 
   getOrder() {
     return this.order.asObservable();
@@ -157,6 +162,21 @@ export class OrderService {
     console.log('===this.order', this.order._value);
   }
 
+  getOngoingOrder(user: any): Promise<any>{
+    /* Disini harusnya nerima user id dari tab1.page.ts
+    * cuman ntah kenapa hasilnya tuh evaluated pas runtime jad undefined pas dikirim
+    * kalau di console log 'Value Evaluated Just Now' messagenya
+    * belum tau gimana cara dapetin langsung objectnya, kalo baca-baca sih katanya
+    * harus pake subscribe tp belom cek
+    * nanti harusnya jadi
+    * this.db.database.ref('orders/' + user.id) ........
+    * */
+    // console.log('===user', user);
+    return this.db.database.ref('orders/ONuPibfPl1aHoQRF0RDb2h7XOPS2')
+        .once('value').then((dataSnapshot) => {
+          return dataSnapshot.val();
+        });
+  }
   // setOrder(newOrder: any) {
   //   this.order.next(this.order = newOrder);
   //   console.log('===this.order', this.order);
