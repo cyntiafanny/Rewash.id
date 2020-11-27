@@ -6,7 +6,7 @@ import { InputDropdownComponent } from '../components/input-dropdown/input-dropd
 import { PriceSummaryCardComponent } from '../components/price-summary-card/price-summary-card.component';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {

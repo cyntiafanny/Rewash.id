@@ -3,7 +3,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button style="color: #ffffff" defaultHref='/outlet'></ion-back-button>
     </ion-buttons>
     <ion-title>Input Items</ion-title>
   </ion-toolbar>
@@ -13,15 +13,13 @@
   <app-input-dropdown></app-input-dropdown>
 </ion-content>
 
-<!--<ion-footer>-->
-  <lib-ionic-pullup (expanded)="footerExpanded()" (collapsed)="footerCollapsed()" [(state)]="footerState" [toolbarTopMargin]="100" [minBottomVisible]="0">
-    <ion-toolbar color="light" (click)="toggleFooter()" class="ion-bottom-toolbar" #ionDragFooter mode="ios">
-      <div class="ion-pullup-bar-container">
-        <div class="ion-pullup-bar"></div>
-      </div>
-    </ion-toolbar>
-    <ion-content>
-      <app-price-summary-card></app-price-summary-card>
-    </ion-content>
-  </lib-ionic-pullup>
-<!--</ion-footer>-->
+<lib-ionic-pullup (expanded)="footerExpanded()" (collapsed)="footerCollapsed()" [(state)]="footerState" [toolbarTopMargin]="200" [minBottomVisible]="0">
+  <ion-toolbar color="light" (click)="toggleFooter()" class="ion-bottom-toolbar" #ionDragFooter mode="ios">
+    <div class="ion-pullup-bar-container">
+      <div class="ion-pullup-bar"></div>
+    </div>
+  </ion-toolbar>
+  <ion-content>
+    <app-price-summary-card></app-price-summary-card>
+  </ion-content>
+</lib-ionic-pullup>

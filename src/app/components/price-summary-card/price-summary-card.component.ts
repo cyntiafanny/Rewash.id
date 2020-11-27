@@ -1,5 +1,5 @@
 import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
-import { PRICE_SUMMARY } from '../../../constants/price-summary';
+import { Router } from '@angular/router';
 import { OrderDetail } from '../../../constants/order-model';
 import { CurrencyPipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
@@ -25,7 +25,10 @@ export class PriceSummaryCardComponent implements OnInit, OnDestroy {
   pickupDate: string;
   deliveryDetailPage: boolean;
 
-  constructor(public orderService: OrderService) {}
+  constructor(
+      public orderService: OrderService,
+      public router: Router
+  ) {}
 
   addDays(date, days) {
     const copy = new Date(Number(date));
@@ -42,10 +45,10 @@ export class PriceSummaryCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.orderSummarySub = this.orderService.getOrder().subscribe((orderData) => {
-      console.log('===orderData', orderData);
+      // console.log('===orderData', orderData);
       this.orderDetail = orderData;
     });
-    console.log('===this.priceSummary', this.orderDetail);
+    // console.log('===this.priceSummary', this.orderDetail);
     this.deliveryDetailPage = true;
     this.allowedHourValues = '7,8,9,10,11,12,13,14,15,16,17,18';
     this.allowedMinuteValues = '0,15,30,45';
@@ -62,7 +65,23 @@ export class PriceSummaryCardComponent implements OnInit, OnDestroy {
   }
 
   onNextClick() {
-      alert('Next is Clicked');
+    // console.log('this.router.url', this.router.url);
+    switch (this.router.url) {
+      case '/input-items': {
+        // alert('=== mau ke laundry details');
+        this.router.navigate(['/laundry-details']);
+        break;
+      }
+      case '/laundry-details': {
+        // alert('=== mau ke delivery details');
+        this.router.navigate(['/delivery-details']);
+        break;
+      }
+      case '/delivery-details': {
+        alert('=== mau ke splashscreen loading');
+        break;
+      }
+    }
   }
 
 }
