@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostBinding, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderDetail } from '../../../constants/order-model';
 import { CurrencyPipe } from '@angular/common';
@@ -6,6 +6,7 @@ import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
 import { OrderService } from '../../services/order/order.service';
 import { Subscription } from 'rxjs';
+import {take} from "rxjs/operators";
 registerLocaleData(localeId, 'id');
 
 @Component({
@@ -14,9 +15,9 @@ registerLocaleData(localeId, 'id');
   styleUrls: ['./price-summary-card.component.scss'],
   providers: [ OrderService ]
 })
-export class PriceSummaryCardComponent implements OnInit, OnDestroy {
+export class PriceSummaryCardComponent implements OnInit {
   orderDetail: OrderDetail;
-  private orderSummarySub: Subscription;
+  orderDetailSub: Subscription;
   todayDate: Date;
   maxDeliveryDate: string;
   minDeliveryDate: string;
@@ -28,7 +29,12 @@ export class PriceSummaryCardComponent implements OnInit, OnDestroy {
   constructor(
       public orderService: OrderService,
       public router: Router
-  ) {}
+  ) {
+    // this.orderService.orderDataStreams.subscribe((orderData) => {
+    //   console.log('===orderData', orderData);
+    //   this.orderDetail = orderData;
+    // });
+  }
 
   addDays(date, days) {
     const copy = new Date(Number(date));
@@ -44,11 +50,11 @@ export class PriceSummaryCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.orderSummarySub = this.orderService.getOrder().subscribe((orderData) => {
-      // console.log('===orderData', orderData);
-      this.orderDetail = orderData;
-    });
-    // console.log('===this.priceSummary', this.orderDetail);
+    this.orderDetailSub = this.orderService.getOrderData()
+        .subscribe((orderData) => {
+          this.orderDetail = orderData;
+        });
+    console.log('===this.orderDetail', this.orderDetail);
     this.deliveryDetailPage = true;
     this.allowedHourValues = '7,8,9,10,11,12,13,14,15,16,17,18';
     this.allowedMinuteValues = '0,15,30,45';
@@ -58,30 +64,27 @@ export class PriceSummaryCardComponent implements OnInit, OnDestroy {
     this.changePickupDate(this.pickupDate);
   }
 
-  ngOnDestroy() {
-    if (this.orderSummarySub) {
-      this.orderSummarySub.unsubscribe();
-    }
-  }
-
   onNextClick() {
-    // console.log('this.router.url', this.router.url);
-    switch (this.router.url) {
-      case '/input-items': {
-        // alert('=== mau ke laundry details');
-        this.router.navigate(['/laundry-details']);
-        break;
-      }
-      case '/laundry-details': {
-        // alert('=== mau ke delivery details');
-        this.router.navigate(['/delivery-details']);
-        break;
-      }
-      case '/delivery-details': {
-        alert('=== mau ke splashscreen loading');
-        break;
-      }
-    }
+    this.orderService.getOrderData().pipe().subscribe((value) => {
+      console.log('===value', value);
+    });
+    // // console.log('this.router.url', this.router.url);
+    // switch (this.router.url) {
+    //   case '/input-items': {
+    //     // alert('=== mau ke laundry details');
+    //     this.router.navigate(['/laundry-details']);
+    //     break;
+    //   }
+    //   case '/laundry-details': {
+    //     // alert('=== mau ke delivery details');
+    //     this.router.navigate(['/delivery-details']);
+    //     break;
+    //   }
+    //   case '/delivery-details': {
+    //     alert('=== mau ke splashscreen loading');
+    //     break;
+    //   }
+    // }
   }
 
 }
