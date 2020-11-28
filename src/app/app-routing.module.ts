@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'input-items',
     loadChildren: () => import('./input-items/input-items.module').then( m => m.InputItemsPageModule)
+  },  {
+    path: 'pages',
+    loadChildren: () => import('./pages/pages.module').then( m => m.PagesPageModule)
   }
+
 ];
 @NgModule({
   imports: [
