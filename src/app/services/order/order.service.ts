@@ -3,6 +3,9 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { OrderDetail } from '../../../constants/order-model';
 import { Router } from '@angular/router';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { Order } from './order.model';
+import { AngularFireDatabase } from '@angular/fire/database';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'

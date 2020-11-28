@@ -29,6 +29,8 @@ export class AuthenticationPage implements OnInit {
     this.auth.onAuthStateChanged((user) => {
       // console.log('===user', user);
       if (user) {
+        console.log('authhh', user.uid);
+        this.userService.storeLoggedUser(user.uid);
         this.router.navigateByUrl('tabs/tab1');
         this.currentUser = user;
         this.userService.setLoggedInUser(user?.uid, user?.email);
@@ -70,8 +72,9 @@ export class AuthenticationPage implements OnInit {
 
   loginUser(credentials) {
     this.auth.signInWithEmailAndPassword(credentials.login_email, credentials.login_password)
-      .then(() => {
+      .then((user) => {
         this.router.navigateByUrl('tabs/tab1');
+        this.userService.storeLoggedUser(user.user.uid);
       },
         // tslint:disable-next-line:no-shadowed-variable
         async error => {
@@ -86,6 +89,7 @@ export class AuthenticationPage implements OnInit {
   signUpUser(credentials) {
     this.auth.createUserWithEmailAndPassword(credentials.signup_email, credentials.signup_password)
       .then((userCredential) => {
+          this.userService.storeLoggedUser(userCredential.user.uid);
           this.userService.create(userCredential.user, credentials.signup_full_name, credentials.signup_phone_number);
           this.router.navigateByUrl('tabs/tab1');
         },
