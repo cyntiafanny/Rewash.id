@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AngularFireDatabase} from '@angular/fire/database';
-import {Outlet} from '../services/outlets/outlet.model';
-import {OutletService} from '../services/outlets/outlet.service';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Outlet } from '../services/outlets/outlet.model';
+import { OutletService } from '../services/outlets/outlet.service';
 
 @Component({
   selector: 'app-outlet',

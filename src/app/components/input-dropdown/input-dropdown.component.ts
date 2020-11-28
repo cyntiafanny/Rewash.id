@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import { ALL_ITEMS } from '../../../constants/items-pricing';
 import { Item } from '../../../constants/item-model';
 import { CurrencyPipe } from '@angular/common';
@@ -18,12 +18,6 @@ import { OrderService } from '../../services/order/order.service';
   providers: [ OrderService ]
 })
 export class InputDropdownComponent implements OnInit {
-  constructor(
-      public toastController: ToastController,
-      public alertController: AlertController,
-      public orderService: OrderService
-  ) { }
-
   normalItems: Array<Item> = [];
   specialItems: Array<Item> = [];
   otherItems: Array<any> = [];
@@ -34,6 +28,14 @@ export class InputDropdownComponent implements OnInit {
   addOtherItemForm: FormGroup;
   count: number;
   hasAlertBeenShown: boolean;
+
+  constructor(
+      public toastController: ToastController,
+      public alertController: AlertController,
+      public orderService: OrderService
+  ) {
+    this.orderService.setOrderData(this.cart);
+  }
 
   ngOnInit() {
     this.count = 0;
@@ -150,8 +152,7 @@ export class InputDropdownComponent implements OnInit {
         }
       }
     };
-    console.log(JSON.stringify(cart));
-    this.orderService.setOrder(cart);
+    this.orderService.setOrderData(cart);
   }
 
   onAddOtherItem(key: any) {

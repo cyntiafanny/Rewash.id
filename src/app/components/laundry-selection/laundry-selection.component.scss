@@ -21,17 +21,13 @@
     }
   }
   
-  .ion-button {
-    --background: #ffffff;
-  }
-  
-  .next-button {
-    margin: 20px auto 10px;
-    color: white;
-    display: flex;
-    padding: 0 10px;
-    width: min-content;
-    justify-content: center;
-  }
-  
-  
+.ion-button {
+  --background: #ffffff;
+}
+
+.text-sub-heading {
+  color: var(--ion-color-primary-shade);
+  font-weight: bold;
+  margin: 10px 15px;
+}
+

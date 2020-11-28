@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Outlet} from './outlet.model';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {Outlet} from './services/outlets/outlet.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,9 @@ import {Outlet} from './outlet.model';
 export class OutletService {
   public outlets: Outlet[] = [];
 
-  constructor() {
+  constructor(
+    private firestore: AngularFirestore,
+  ) {
   }
 
   storeOutlet(outlets: Outlet[]) {

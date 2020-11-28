@@ -1,11 +1,11 @@
-import { LaundrySelectionComponent } from './../components/laundry-selection/laundry-selection.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-
-import {IonicModule} from '@ionic/angular';
-import {CommonModule} from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { LaundrySelectionComponent } from '../components/laundry-selection/laundry-selection.component';
 import { LaundryDetailsPage } from './laundry-details.page';
+import { PriceSummaryCardComponent } from '../components/price-summary-card/price-summary-card.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const routes: Routes = [
   {
     path: '',
@@ -15,8 +15,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes), IonicModule, CommonModule],
-  entryComponents: [LaundrySelectionComponent],
-  declarations: [LaundrySelectionComponent],
-  exports: [RouterModule, LaundrySelectionComponent],
+  entryComponents: [LaundrySelectionComponent, PriceSummaryCardComponent],
+  declarations: [LaundrySelectionComponent, PriceSummaryCardComponent],
+  exports: [RouterModule, LaundrySelectionComponent, PriceSummaryCardComponent],
 })
 export class LaundryDetailsPageRoutingModule {}

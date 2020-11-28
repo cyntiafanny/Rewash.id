@@ -1,20 +1,4 @@
-<!--<ion-header [translucent]="true">-->
-<!--  <ion-toolbar>-->
-<!--    <ion-title>-->
-<!--      Home-->
-<!--    </ion-title>-->
-<!--  </ion-toolbar>-->
-<!--</ion-header>-->
-
 <ion-content [fullscreen]="true">
-  <!--  <ion-header collapse="condense">-->
-  <!--    <ion-toolbar>-->
-  <!--      <ion-title size="large">Home</ion-title>-->
-  <!--    </ion-toolbar>-->
-  <!--  </ion-header>-->
-
-  <!--  <app-explore-container name="Tab 1 page">-->
-  <!--  </app-explore-container>-->
   <ion-content>
     <!-- Hello Message -->
     <ion-grid class="ion-hello-message">
@@ -33,10 +17,18 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <!--  Banner -->
-    <ion-card class="ion-card-banner">
-      <ion-img src="/assets/static/promotions/banner1.png"></ion-img>
-    </ion-card>
+    <!--  Carousel -->
+    <ion-slides pager="true">
+      <ion-slide>
+        <ion-img src="/assets/static/promotions/banner1.png"></ion-img>
+      </ion-slide>
+      <ion-slide>
+        <ion-img src="/assets/static/promotions/banner2.png"></ion-img>
+      </ion-slide>
+      <ion-slide>
+        <ion-img src="/assets/static/promotions/banner3.png"></ion-img>
+      </ion-slide>
+    </ion-slides>
 
         <!-- Location Search -->
         <ion-searchbar

@@ -6,6 +6,7 @@ import {OrderService} from "../services/order/order.service";
 import {Router} from "@angular/router";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {map} from "rxjs/operators";
+import { User } from '../services/users/user';
 
 @Component({
   selector: 'app-tab1',
@@ -14,7 +15,7 @@ import {map} from "rxjs/operators";
 })
 
 export class Tab1Page implements OnInit {
-  user: any;
+  user: User;
   uid: string;
   ongoingOrders: any = [];
 
