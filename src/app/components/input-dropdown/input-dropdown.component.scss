@@ -24,3 +24,16 @@
 .ion-button {
   --background: #ffffff;
 }
+
+.next-button {
+  margin: 20px auto 10px;
+  color: white;
+  display: flex;
+  padding: 0 10px;
+  width: min-content;
+  justify-content: center;
+}
+
+.ion-toggle-button {
+  color: var(--ion-color-dark);
+}

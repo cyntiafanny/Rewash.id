@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="../components/price-summary-card/price-summary-card.component.scss">
+<link rel="stylesheet" href="input-items.page.scss">
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -10,3 +12,16 @@
 <ion-content>
   <app-input-dropdown></app-input-dropdown>
 </ion-content>
+
+<!--<ion-footer>-->
+  <lib-ionic-pullup (expanded)="footerExpanded()" (collapsed)="footerCollapsed()" [(state)]="footerState" [toolbarTopMargin]="100" [minBottomVisible]="0">
+    <ion-toolbar color="light" (click)="toggleFooter()" class="ion-bottom-toolbar" #ionDragFooter mode="ios">
+      <div class="ion-pullup-bar-container">
+        <div class="ion-pullup-bar"></div>
+      </div>
+    </ion-toolbar>
+    <ion-content>
+      <app-price-summary-card></app-price-summary-card>
+    </ion-content>
+  </lib-ionic-pullup>
+<!--</ion-footer>-->
