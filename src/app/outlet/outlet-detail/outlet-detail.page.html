@@ -42,5 +42,18 @@
             </ion-col>
         </ion-row>
     </ion-list>
-    <ion-button class="ion-color-primary order-button" [routerLink]="['/input-items']">CREATE AN ORDER</ion-button>
+    <ion-button class="ion-color-primary order-button" [routerLink]="['/input-items']" expand="block">CREATE AN ORDER</ion-button>
+    <ion-text class="outlet-name ion-padding" color="success">Reviews</ion-text>
+    <ion-list  *ngFor="let review of loadedOutlet.feedbacks | keyvalue">
+        <ion-item>
+            <ion-avatar slot="start">
+                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
+            <ion-label>{{review.value}}</ion-label>
+        </ion-item>
+    </ion-list>
+    <br>
+    <ion-text *ngIf="loadedOutlet.feedbacks.length <= 0" class="ion-padding">
+        Be the first to review!
+    </ion-text>
 </ion-content>

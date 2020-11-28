@@ -42,6 +42,7 @@ export class OutletPage implements OnInit {
           Object.keys(data.val()).forEach(outletKey => {
               this.outlet.push({
                 id: outletKey,
+                feedbacks: data.val()[outletKey].feedbacks || [],
                 name: data.val()[outletKey].name,
                 location: data.val()[outletKey].location,
                 longitude: data.val()[outletKey].longitude,

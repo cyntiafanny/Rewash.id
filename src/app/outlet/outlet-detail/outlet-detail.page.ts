@@ -12,12 +12,13 @@ export class OutletDetailPage implements OnInit {
   outlet: Outlet[] = [];
   loadedOutlet: Outlet;
   fullStar: number;
-  halfStar: boolean = false;
-  emptyStar: number = 5;
+  halfStar = false;
+  emptyStar = 5;
   rating: number;
   openHours: string[] = [];
   day: string[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   UIday: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  reviews: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -28,12 +29,12 @@ export class OutletDetailPage implements OnInit {
   renderOpenHours() {
     this.day.forEach(singleDay => {
       if (this.loadedOutlet.openHours[singleDay]) {
-        this.openHours.push(this.loadedOutlet.openHours[singleDay].open + " - " +
-          this.loadedOutlet.openHours[singleDay].close)
+        this.openHours.push(this.loadedOutlet.openHours[singleDay].open + ' - ' +
+          this.loadedOutlet.openHours[singleDay].close);
       } else {
-        this.openHours.push("CLOSED")
+        this.openHours.push('CLOSED');
       }
-    })
+    });
   }
 
   ngOnInit() {
@@ -43,8 +44,11 @@ export class OutletDetailPage implements OnInit {
       }
       const outletId = paramMap.get('outletId');
       this.loadedOutlet = this.outletService.getOutlet(outletId);
+      this.reviews = this.loadedOutlet.feedbacks;
+      // console.log('===this.reviews', this.reviews);
       this.rating = this.loadedOutlet.points / this.loadedOutlet.transactions;
       this.fullStar = Math.floor(this.rating);
+      // tslint:disable-next-line:triple-equals
       if (this.rating % 1 != 0) {
         this.halfStar = true;
         this.emptyStar = this.emptyStar - this.fullStar - 1;

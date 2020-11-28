@@ -1,1 +1,1 @@
-export const OTHER_PRICE = 250000;
+export const OTHER_PRICE = 25000;
