@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Outlet} from './outlet.model';
+import {Outlet} from './services/outlets/outlet.model';
 
 @Injectable({
   providedIn: 'root'

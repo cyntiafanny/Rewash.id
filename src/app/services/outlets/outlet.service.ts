@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Outlet} from "./outlet.model";
+import {Outlet} from './outlet.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class OutletService {
 
   storeOutlet(outlets: Outlet[]) {
     this.outlets = [];
-    this.outlets = outlets
+    this.outlets = outlets;
   }
 
   getAllOutlets() {
