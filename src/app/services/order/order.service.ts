@@ -4,6 +4,7 @@ import { OrderDetail } from '../../../constants/order-model';
 import { Router } from '@angular/router';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
+import {UserService} from '../users/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -244,7 +245,8 @@ export class OrderService {
     * belum tau gimana cara dapetin langsung objectnya, kalo baca-baca sih katanya
     * harus pake subscribe tp belom cek
     * nanti harusnya jadi
-    * this.db.database.ref('orders/' + user.id) ........
+    * this.db
+    * .database.ref('orders/' + user.id) ........
     * */
     // console.log('===user', user);
     return this.db.database.ref('orders/ONuPibfPl1aHoQRF0RDb2h7XOPS2')

@@ -42,6 +42,7 @@ export class OutletPage implements OnInit {
           Object.keys(data.val()).forEach(outletKey => {
               this.outlet.push({
                 id: outletKey,
+                feedbacks: data.val()[outletKey].feedbacks || [],
                 name: data.val()[outletKey].name,
                 location: data.val()[outletKey].location,
                 longitude: data.val()[outletKey].longitude,
@@ -61,12 +62,14 @@ export class OutletPage implements OnInit {
 
   ngOnInit() {
     this.fetchOutletFromDatabase();
-    setTimeout(() => this.outlet.sort((a,b) => (a.distance > b.distance) ? 1 : -1), 2000);
+    // setTimeout(() => this.outlet.sort((a, b) => (a.distance > b.distance) ? 1 : -1), 2000);
+    console.log(this.outlet);
+    this.outlet.sort((a, b) => (a.distance > b.distance) ? 1 : -1);
     this.outletService.storeOutlet(this.outlet);
   }
 
   ionViewWillEnter() {
-    this.outlet = this.outletService.getAllOutlets();
+    // this.outlet = this.outletService.getAllOutlets();
   }
 
 

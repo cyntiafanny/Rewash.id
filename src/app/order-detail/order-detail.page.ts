@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {OrderDetail} from '../../constants/order-model';
+import { OrderDetail } from '../../constants/order-model';
 import { CurrencyPipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
 registerLocaleData(localeId, 'id');
 import { OTHER_PRICE } from '../../constants/other-price';
+import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { User} from '../services/users/user';
+import { UserService } from '../services/users/user.service';
+import { NavController } from "@ionic/angular";
 
 @Component({
   selector: 'app-order-detail',
@@ -12,15 +18,21 @@ import { OTHER_PRICE } from '../../constants/other-price';
   styleUrls: ['./order-detail.page.scss'],
 })
 
-export class OrderDetailPage implements OnInit {
+export class OrderDetailPage implements OnInit{
   orderDetail: OrderDetail;
-  priceTotal: object;
+  priceTotal: number;
   shippingInfo: any;
   OTHERS_PRICE: number;
-  constructor() { }
+  user: User;
+  constructor(
+      private activatedRoute: ActivatedRoute,
+      private navCtrl: NavController,
+      private alertController: AlertController,
+      private db: AngularFireDatabase,
+      private userService: UserService
+  ) { }
 
   formatDateAndTime(shippingInfo: object) {
-    console.log('===shippingInfo', shippingInfo);
     // @ts-ignore
     const pickupDate = new Date(shippingInfo.PICKUPTD);
     // @ts-ignore
@@ -30,140 +42,114 @@ export class OrderDetailPage implements OnInit {
       DELIVERYTD: deliveryDate.toDateString() + ' ' + deliveryDate.toLocaleTimeString()
     };
   }
-  ngOnInit() {
+
+  ngOnInit(): void {
+    this.user = this.userService.getLoggedInUser();
     this.OTHERS_PRICE = OTHER_PRICE;
-    // @ts-ignore
-    this.orderDetail = {
-      SPECIAL: [
-        {
-          KEY: 'BATIK',
-          NAME: 'Batik',
-          PRICE: 50000,
-          WEIGHT: 200,
-          QTY: 1
-        },
-        {
-          KEY: 'SHORT_DRESS',
-          NAME: 'Short Dress',
-          PRICE: 50000,
-          WEIGHT: 200,
-          QTY: 1
-        },
-        {
-          KEY: 'BEDCOVER',
-          NAME: 'Bedcover',
-          PRICE: 50000,
-          WEIGHT: 200,
-          QTY: 1
-        }
-      ],
-      NORMAL: [
-        {
-          KEY: 'SHORT_TOPS',
-          NAME: 'Short Tops',
-          PRICE: 50000,
-          WEIGHT: 200,
-          QTY: 1
-        },
-        {
-          KEY: 'LONG_TOPS',
-          NAME: 'Long Tops',
-          PRICE: 50000,
-          WEIGHT: 200,
-          QTY: 1
-        },
-        {
-          KEY: 'SHORT_BOTTOMS',
-          NAME: 'Short Bottoms',
-          PRICE: 50000,
-          WEIGHT: 200,
-          QTY: 1
-        }
-      ],
-      OTHERS: [
-        // @ts-ignore
-        {
-          KEY: '1327868128',
-          NAME: 'Bantal',
-          QTY: 4
-        }
-      ],
-      DETAIL: {
-        ORDERID: 'ASDFGHJKL12345',
-        ADDITIONALS: {
-          SCENT: 'Clean Cotton',
-          REQUEST_BAG: false,
-          NOTES: 'Tolong dicuci yang bersih ya!'
-        },
-        PRICE: [
-          {
-            NAME: 'Special Items Price',
-            PRICE: 150000
-          },
-          {
-            NAME: 'Normal Items Price',
-            PRICE: 6000
-          },
-          {
-            NAME: 'Other Items Price',
-            PRICE: 100000
-          },
-          {
-            NAME: 'Total Order Price',
-            PRICE: 256000
-          }
-        ],
-        WEIGHT: {
-          normalItemsEstWeightTotal: 1,
-          specialItemsEstWeightTotal: 1
-        },
-        SHIPPING: {
-          DELIVERYTD: '2020-11-29T05:08:04.200Z',
-          PICKUPTD: '2020-11-26T05:08:04.200Z',
-          ORIGIN: 'Perumahan Lengkong Wetan',
-          DESTINATION: 'Rewash Aeon Mall',
-          OUTLETID: 'o1',
-          USERID: 'BKOJAldnq4MDqqXLMhtE6WRRbSc2',
-          NOTES: 'Yang bersih yaaa'
-        },
-        PROGRESS:  [
-          {
-            NAME: 'Order placed & confirmed',
-            STATUS: true
-          },
-          {
-            NAME: 'Driver on the way to pickup',
-            STATUS: false
-          },
-          {
-            NAME: 'Laundry picked up, delivering to outlet',
-            STATUS: false
-          },
-          {
-            NAME: 'Laundry received & confirmed by outlet',
-            STATUS: false
-          },
-          {
-            NAME: 'Laundry is being washed',
-            STATUS: false
-          },
-          {
-            NAME: 'Laundry is finished washing',
-            STATUS: false
-          },
-          {
-            NAME: 'Laundry is on the way!',
-            STATUS: false
-          },
-          {
-            NAME: 'Laundry has been received',
-            STATUS: false
-          }
-        ]
-      }
-    };
-    this.priceTotal = this.orderDetail.DETAIL.PRICE.find((each) => each.NAME === 'Total Order Price');
-    this.shippingInfo = this.formatDateAndTime(this.orderDetail.DETAIL.SHIPPING);
+    this.activatedRoute.queryParams.subscribe(params => {
+      const data = JSON.parse(params.data);
+      this.orderDetail = data;
+      this.priceTotal = this.orderDetail.DETAIL.PRICE.find((each) => each.NAME === 'Total Order Price').PRICE;
+      this.shippingInfo = this.formatDateAndTime(this.orderDetail.DETAIL.SHIPPING);
+    });
   }
 
+  async presentAlertPrompt() {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      animated: true,
+      backdropDismiss: true,
+      header: 'Complete Order?',
+      message: 'Enjoy your freshly cleaned clothes!\n' + 'How did you like the\n' + 'service?',
+      inputs: [
+        {
+          name: 'rating',
+          type: 'number',
+          placeholder: '1-5'
+        },
+        {
+          name: 'feedback',
+          id: 'feedback',
+          type: 'textarea',
+          placeholder: 'Anything you wanna tell us?'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            alert.dismiss();
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            const { rating, feedback } = data;
+            /* Buat nampung previous values nya
+            * OUTLET :
+            *   prevRating (points)
+            *   transactionCount (transactions)
+            * ORDER :
+            *   prevProgress (DETAIL.PROGRESS)
+            *   index (index order si pengguna yang mau diubah)
+            * */
+            let prevRating;
+            let transactionCount;
+            let prevProgress;
+            let index;
+            /* Kalau complete order semuanya kan harus true,
+            * jadi temp object utk set semua STATUS dlm array jadi true kemudian dikirim buat di update
+            * */
+            const newProgress = [];
+            // Outlet Reference
+            const outletRef = this.db.database.ref('outlet/' + this.orderDetail.DETAIL.SHIPPING.OUTLETID);
+            // Order Reference
+            const orderRef = this.db.database.ref('orders/' + this.user.id)
+                .orderByChild('DETAIL/ORDERID')
+                .equalTo(this.orderDetail.DETAIL.ORDERID);
+            try {
+              // Set all PROGRESS STATUS to TRUE
+              orderRef.once('value').then((dataSnapshot) => {
+                index = dataSnapshot.val().findIndex((obj) => obj?.DETAIL !== undefined);
+                prevProgress = dataSnapshot.val().filter((obj) => !obj.isEmpty)[0].DETAIL.PROGRESS;
+              }).then(() => {
+                prevProgress.forEach((item) => {
+                  newProgress.push({
+                    NAME: item.NAME,
+                    STATUS: true
+                  });
+                });
+                this.db.database.ref('orders/' + this.user.id.concat(`/${index}/DETAIL`))
+                    .update({
+                      PROGRESS: newProgress
+                    });
+              });
+              // Update data mengenai outlet setelah mendapatkan feedback & rating
+              outletRef.once('value').then((dataSnaphot) => {
+                prevRating = dataSnaphot.val().points;
+                transactionCount = dataSnaphot.val().transactions;
+              }).then(() => {
+                outletRef.update({
+                  // tslint:disable-next-line:radix
+                  points: (prevRating + parseInt(rating)),
+                  transactions: ++transactionCount
+                });
+                outletRef.child('feedbacks').push(feedback);
+              });
+            } catch (e) {
+              console.log('===Error', e);
+            } finally {
+              this.navCtrl.navigateBack('/tabs/tab2');
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+  onComplete() {
+    this.presentAlertPrompt();
+  }
 }
