@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {Outlet} from "../../services/outlets/outlet.model";
-import {ActivatedRoute} from "@angular/router";
-import {OutletService} from "../../services/outlets/outlet.service";
+import {Outlet} from '../../services/outlets/outlet.model';
+import {ActivatedRoute} from '@angular/router';
+import {OutletService} from '../../services/outlets/outlet.service';
 
 @Component({
   selector: 'app-outlet-detail',
   templateUrl: './outlet-detail.page.html',
   styleUrls: ['./outlet-detail.page.scss'],
 })
+
 export class OutletDetailPage implements OnInit {
   outlet: Outlet[] = [];
   loadedOutlet: Outlet;
@@ -21,8 +22,8 @@ export class OutletDetailPage implements OnInit {
   reviews: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private outletService: OutletService
+      private activatedRoute: ActivatedRoute,
+      private outletService: OutletService
   ) {
   }
 
@@ -30,7 +31,7 @@ export class OutletDetailPage implements OnInit {
     this.day.forEach(singleDay => {
       if (this.loadedOutlet.openHours[singleDay]) {
         this.openHours.push(this.loadedOutlet.openHours[singleDay].open + ' - ' +
-          this.loadedOutlet.openHours[singleDay].close);
+            this.loadedOutlet.openHours[singleDay].close);
       } else {
         this.openHours.push('CLOSED');
       }
@@ -44,12 +45,12 @@ export class OutletDetailPage implements OnInit {
       }
       const outletId = paramMap.get('outletId');
       this.loadedOutlet = this.outletService.getOutlet(outletId);
+      console.log('===loadedOutlet', this.loadedOutlet);
       this.reviews = this.loadedOutlet.feedbacks;
       // console.log('===this.reviews', this.reviews);
       this.rating = this.loadedOutlet.points / this.loadedOutlet.transactions;
       this.fullStar = Math.floor(this.rating);
-      // tslint:disable-next-line:triple-equals
-      if (this.rating % 1 != 0) {
+      if (this.rating % 1 !== 0) {
         this.halfStar = true;
         this.emptyStar = this.emptyStar - this.fullStar - 1;
       } else {
