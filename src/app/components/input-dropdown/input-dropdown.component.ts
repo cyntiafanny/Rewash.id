@@ -10,12 +10,13 @@ registerLocaleData(localeId, 'id');
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { OrderService } from '../../services/order/order.service';
+import {OrderDetail} from "../../../constants/order-model";
 
 @Component({
   selector: 'app-input-dropdown',
   templateUrl: './input-dropdown.component.html',
   styleUrls: ['./input-dropdown.component.scss'],
-  providers: [ OrderService ]
+  // providers: [ OrderService ]
 })
 export class InputDropdownComponent implements OnInit {
   normalItems: Array<Item> = [];
@@ -34,7 +35,7 @@ export class InputDropdownComponent implements OnInit {
       public alertController: AlertController,
       public orderService: OrderService
   ) {
-    this.orderService.setOrderData(this.cart);
+    // this.orderService.setOrderData(new OrderDetail());
   }
 
   ngOnInit() {
@@ -130,20 +131,20 @@ export class InputDropdownComponent implements OnInit {
       DETAIL: {
         PRICE : [
           {
-            name: 'Special Items Price',
-            price: specialItemsPriceTotal,
+            NAME: 'Special Items Price',
+            PRICE: specialItemsPriceTotal,
           },
           {
-            name: 'Normal Items Price',
-            price: normalItemsPriceTotal,
+            NAME: 'Normal Items Price',
+            PRICE: normalItemsPriceTotal,
           },
           {
-            name: 'Other Items Price',
-            price: otherItemsPriceTotal,
+            NAME: 'Other Items Price',
+            PRICE: otherItemsPriceTotal,
           },
           {
-            name: 'Total Order Price',
-            price: totalOrderPrice,
+            NAME: 'Total Order Price',
+            PRICE: totalOrderPrice,
           }
         ],
         WEIGHT: {

@@ -1,5 +1,5 @@
 <div class="price-summary-card">
-   DELIVERY DETAILS
+<!--   DELIVERY DETAILS-->
   <div *ngIf="deliveryDetailPage">
     <!--  LOCATION   -->
     <div>
@@ -24,7 +24,7 @@
         </ion-row>
       </ion-grid>
     </div>
-    <!--  DATE & TIME   -->
+<!--      DATE & TIME   -->
     <div>
       <ion-item>
         <ion-label position="stacked">Pickup Date & Time</ion-label>
@@ -45,7 +45,7 @@
       </ion-item>
     </div>
   </div>
-   LIST OF PRICES
+<!--   LIST OF PRICES-->
   <div style="margin: 10px 0px">
     <ion-list *ngFor="let item of orderDetail.DETAIL.PRICE" class="ion-no-padding">
       <ion-row>
