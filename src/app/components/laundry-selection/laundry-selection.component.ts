@@ -1,12 +1,10 @@
-import { ALL_SCENT } from './../../../constants/scent-list';
-import { SCENT } from './../../../constants/scent-model';
+import { ALL_SCENT } from '../../../constants/scent-list';
+import { SCENT } from '../../../constants/scent-model';
 import { Component, OnInit } from '@angular/core';
-import { ALL_ITEMS } from '../../../constants/items-pricing';
-import { Item } from '../../../constants/item-model';
-import { CurrencyPipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
-import {element} from 'protractor';
+import {FormGroup, FormControl, Validators } from '@angular/forms';
+import {OrderService} from '../../services/order/order.service';
 registerLocaleData(localeId, 'id');
 
 @Component({
@@ -16,10 +14,22 @@ registerLocaleData(localeId, 'id');
 })
 export class LaundrySelectionComponent implements OnInit {
   AllScents: Array<SCENT> = [];
-  constructor() { }
+  laundryDetailsForm: FormGroup;
+  constructor(
+      private orderService: OrderService
+  ) { }
 
   ngOnInit() {
     this.AllScents = ALL_SCENT.SCENTS;
+    this.laundryDetailsForm = new FormGroup({
+      scent: new FormControl(null, Validators.required),
+      bag: new FormControl(null),
+      notes: new FormControl(null)
+    });
   }
 
+  updateLaundryDetails(value: any) {
+    console.log('===value', value);
+    this.orderService.setOrderData(value);
+  }
 }

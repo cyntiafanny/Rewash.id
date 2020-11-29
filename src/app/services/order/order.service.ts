@@ -109,7 +109,7 @@ export class OrderService {
   setOrderData(newData) {
     this.orderDataStreams = newData;
     this.orderDataSource.next(newData);
-    // console.log('===AFTER SET this.orderDataStreams', this.orderDataStreams);
+    console.log('===AFTER SET this.orderDataStreams', this.orderDataStreams);
   }
 
   getOrderData() {

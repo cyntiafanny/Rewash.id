@@ -50,7 +50,6 @@ export class PriceSummaryCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('===this.router.url', this.router.url);
     if (this.router.url === '/delivery-details') {
       this.deliveryDetailPage = true;
     } else {

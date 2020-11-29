@@ -1,5 +1,5 @@
 export const ALL_SCENT = {
-    SCENTS:[
+    SCENTS: [
         {
             KEY: 'cotton',
             NAME: 'Clean Cotton'
