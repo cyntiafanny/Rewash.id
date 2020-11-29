@@ -6,15 +6,14 @@ import { registerLocaleData } from '@angular/common';
 import localeId from '@angular/common/locales/id';
 import { OrderService } from '../../services/order/order.service';
 import { Subscription } from 'rxjs';
-import {take} from "rxjs/operators";
 registerLocaleData(localeId, 'id');
 
 @Component({
   selector: 'app-price-summary-card',
   templateUrl: './price-summary-card.component.html',
-  styleUrls: ['./price-summary-card.component.scss'],
-  providers: [ OrderService ]
+  styleUrls: ['./price-summary-card.component.scss']
 })
+
 export class PriceSummaryCardComponent implements OnInit {
   orderDetail: OrderDetail;
   orderDetailSub: Subscription;
@@ -25,6 +24,7 @@ export class PriceSummaryCardComponent implements OnInit {
   allowedMinuteValues: string;
   pickupDate: string;
   deliveryDetailPage: boolean;
+  isObjEmpty: any;
 
   constructor(
       public orderService: OrderService,
@@ -50,12 +50,15 @@ export class PriceSummaryCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.router.url === '/delivery-details') {
+      this.deliveryDetailPage = true;
+    } else {
+      this.deliveryDetailPage = false;
+    }
     this.orderDetailSub = this.orderService.getOrderData()
         .subscribe((orderData) => {
           this.orderDetail = orderData;
         });
-    console.log('===this.orderDetail', this.orderDetail);
-    this.deliveryDetailPage = true;
     this.allowedHourValues = '7,8,9,10,11,12,13,14,15,16,17,18';
     this.allowedMinuteValues = '0,15,30,45';
     // Get today's date as minimum pickup date
@@ -65,26 +68,23 @@ export class PriceSummaryCardComponent implements OnInit {
   }
 
   onNextClick() {
-    this.orderService.getOrderData().pipe().subscribe((value) => {
-      console.log('===value', value);
-    });
     // // console.log('this.router.url', this.router.url);
-    // switch (this.router.url) {
-    //   case '/input-items': {
-    //     // alert('=== mau ke laundry details');
-    //     this.router.navigate(['/laundry-details']);
-    //     break;
-    //   }
-    //   case '/laundry-details': {
-    //     // alert('=== mau ke delivery details');
-    //     this.router.navigate(['/delivery-details']);
-    //     break;
-    //   }
-    //   case '/delivery-details': {
-    //     alert('=== mau ke splashscreen loading');
-    //     break;
-    //   }
-    // }
+    switch (this.router.url) {
+      case '/input-items': {
+        // alert('=== mau ke laundry details');
+        this.router.navigate(['/laundry-details']);
+        break;
+      }
+      case '/laundry-details': {
+        // alert('=== mau ke delivery details');
+        this.router.navigate(['/delivery-details']);
+        break;
+      }
+      case '/delivery-details': {
+        alert('=== mau ke splashscreen loading');
+        break;
+      }
+    }
   }
 
 }

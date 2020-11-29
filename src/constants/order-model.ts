@@ -34,9 +34,9 @@ export class OrderDetail {
     };
 
     constructor(
-        SPECIAL: {},
-        NORMAL: {},
-        OTHERS: {},
+        SPECIAL: [],
+        NORMAL: [],
+        OTHERS: [],
         // tslint:disable-next-line:max-line-length
         DETAIL: { ORDERID: string; PRICE: [{ PRICE: number; NAME: string }, { PRICE: number; NAME: string }, { PRICE: number; NAME: string }, { PRICE: number; NAME: string }]; PROGRESS: any[]; WEIGHT: {}; ADDITIONALS: { NOTES: string; SCENT: string; REQUEST_BAG: boolean }; SHIPPING: { NOTES: string; ORIGIN: string; DELIVERYTD: string; DESTINATION: string; USERID: string; OUTLETID: string; PICKUPTD: string } }
     ) {}

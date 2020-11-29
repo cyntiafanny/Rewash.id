@@ -14,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), IonicModule, CommonModule],
+    imports: [RouterModule.forChild(routes), IonicModule, CommonModule, ReactiveFormsModule],
   entryComponents: [LaundrySelectionComponent, PriceSummaryCardComponent],
   declarations: [LaundrySelectionComponent, PriceSummaryCardComponent],
   exports: [RouterModule, LaundrySelectionComponent, PriceSummaryCardComponent],
